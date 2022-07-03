@@ -9,16 +9,7 @@ namespace Ex_LetsMarket
 {
     public class Login
     {
-        public string Name { get; set; }
-        public string Password { get; set; }
-
         public XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
-
-        public Login(string name, string password)
-        {
-            this.Name = name;
-            this.Password = password;
-        }
 
         public static void Enter(string dbPath)
         {
@@ -36,6 +27,8 @@ namespace Ex_LetsMarket
             var funcionario = Funcionario.LoadFuncionario(dbPath);
             string nome = "";
             string senha = "";
+            string entradalogin = "";
+            string entradasenha = "";
 
             Console.WriteLine($"Número de funcionários Cadastrados: {funcionario.Count}");
 
@@ -61,17 +54,49 @@ namespace Ex_LetsMarket
 
 
             }
-            var content = File.ReadAllText(dbPath);
+            else
+            {
+                Console.Clear();
+                bool atempt = false;
+                do
+                {
+                    Console.WriteLine("Insira seu Login: ");
+                    entradalogin = Console.ReadLine();
 
-            //XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
-            TextWriter write = new StreamWriter(dbPath);
+                    do {
+                        if (!funcionario.Contains(entradalogin))
+                        {
+                            Console.WriteLine("Login inválido.");
+                        }
+                        else
+                        {
+                            atempt = true;
+                        }
+                    } while (atempt == false);
 
-            //bool atempt = false;
-            //do
-            //{
+                    do
+                    {
+                        Console.Write("Insira sua senha: ");
+                        entradasenha =Console.ReadLine();
+                        for(int i=0; i<funcionario.Count; i++)
+                        {
+                            if (funcionario[i].ToString() == entradasenha)
+                            {
+                                atempt = true;
+                            }
+                            else
+                            {
+                                atempt = false;
+                                Console.WriteLine("Senha incorreta.");
+                            }
+                        }
 
+                    } while (atempt == false);
 
-            //} while (atempt == false);
+                } while (atempt == false);
+
+               
+            }
         }
 
     }
