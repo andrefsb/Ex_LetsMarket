@@ -60,17 +60,21 @@ namespace Ex_LetsMarket
                 bool atempt = false;
                 do
                 {
-                    Console.WriteLine("Insira seu Login: ");
-                    entradalogin = Console.ReadLine();
-
                     do {
-                        if (!funcionario.Contains(entradalogin))
+                        Console.WriteLine("Insira seu Login: ");
+                        entradalogin = Console.ReadLine();
+
+                        foreach( var log in funcionario)
                         {
-                            Console.WriteLine("Login inválido.");
-                        }
-                        else
-                        {
-                            atempt = true;
+                            if(entradalogin == log.Login)
+                            {
+                                atempt = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Login inexistente.");
+                            }
+
                         }
                     } while (atempt == false);
 
@@ -80,7 +84,7 @@ namespace Ex_LetsMarket
                         entradasenha =Console.ReadLine();
                         for(int i=0; i<funcionario.Count; i++)
                         {
-                            if (funcionario[i].ToString() == entradasenha)
+                            if (funcionario[i].Login.ToString() == entradasenha)
                             {
                                 atempt = true;
                             }
