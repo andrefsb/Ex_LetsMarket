@@ -35,29 +35,28 @@ namespace Ex_LetsMarket
             string login = "";
             string senha = "";
 
-            if (funcionario.Count > 0)
+            if (funcionario.Count < 1)
             {
-                Console.WriteLine("Dados do novo funcionário.");
-                Console.Write("Nome:");
-                nome = Console.ReadLine();
-                Console.Write("Cargo:");
-                cargo = Console.ReadLine();
-                Console.Write("Login:");
-                login = Console.ReadLine();
-                Console.Write("Senha:");
-                senha = Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine("\nCadastro do primeiro acesso:\n");
             }
-            else
-            {
-                nome = "admin";
-                cargo = "admin";
-                login = "admin";
-                senha = "admin";
-            }
+
+            Console.WriteLine("Dados do novo funcionário");
+            Console.Write("Nome:");
+            nome = Console.ReadLine();
+            Console.Write("Cargo:");
+            cargo = Console.ReadLine();
+            Console.Write("Login:");
+            login = Console.ReadLine();
+            Console.Write("Senha:");
+            senha = Console.ReadLine();
+
+            Console.WriteLine($"Funcionário {nome} cadastrado com sucesso!");
+
+
             funcionario.Add(new Funcionario { Nome = nome, Cargo = cargo, Login = login, Senha = senha, });
 
             serializer.Serialize(write, funcionario);
-
             write.Close();
         }
 
