@@ -1,4 +1,5 @@
 ﻿using BetterConsoleTables;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Ex_LetsMarket
@@ -10,7 +11,7 @@ namespace Ex_LetsMarket
         public string Cargo { get; set; }
         public string Login { get; set; }
         public string Senha { get; set; }
-        public static List<Funcionario> funcionario { get; } = new List<Funcionario>();
+        public static List<Funcionario> funcionario { get; set; } = new List<Funcionario>();
         public static int Count { get => funcionario.Count; }
         public static void ListarFuncionarios()
         {
@@ -34,25 +35,58 @@ namespace Ex_LetsMarket
             string cargo = "";
             string login = "";
             string senha = "";
+            bool verif = false;
+            int tamanho = 0;
+            List<string> nomeC = new List<string>();
+
+            Console.WriteLine("Dados do novo funcionário");
+
 
             if (funcionario.Count < 1)
             {
                 Console.Clear();
-                Console.WriteLine("\nCadastro do primeiro acesso:\n");
+                Console.WriteLine("Cadastro do primeiro acesso:\n");
             }
+            do
+            {
+                Console.WriteLine("Insira o nome do usuário: ");
+                nome = Console.ReadLine().ToUpper().Trim();
+                nomeC = nome.Split(' ').ToList();
 
-            Console.WriteLine("Dados do novo funcionário");
-            Console.Write("Nome:");
-            nome = Console.ReadLine();
+                if (nomeC.Count < 2)
+                {
+                    Console.WriteLine("Escreva nome e sobrenome.\n");
+                }
+
+            } while (nomeC.Count < 2);
+
+            nomeC = nome.Split(' ').ToList();
             Console.Write("Cargo:");
             cargo = Console.ReadLine();
             Console.Write("Login:");
             login = Console.ReadLine();
-            Console.Write("Senha:");
-            senha = Console.ReadLine();
+            do
+            {
+                verif = true;
+                Console.WriteLine("Insira a senha do usuário: ");
+                senha = Console.ReadLine();
+                tamanho = nomeC.Count;
 
-            Console.WriteLine($"Funcionário {nome} cadastrado com sucesso!");
+                foreach (string s in nomeC)
+                {
 
+                    if (senha.ToUpper().Contains(s) || senha.ToUpper().Contains(" "))
+                    {
+                        verif = false;
+                    }
+                }
+                if (verif == false)
+                {
+                    Console.WriteLine("\nSenha inválida. Não pode conter nome, sobrenome ou espaços em branco.\n");
+                }
+            } while (verif == false);
+
+            Console.WriteLine($"\nFuncionário {nome}({login}) cadastrado com sucesso!");
 
             funcionario.Add(new Funcionario { Nome = nome, Cargo = cargo, Login = login, Senha = senha, });
 

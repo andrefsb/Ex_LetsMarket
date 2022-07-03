@@ -55,7 +55,7 @@ namespace Ex_LetsMarket
                         Console.WriteLine("Login ou senha inválidos.\n");
                     }
 
-                } while (nome.ToUpper() != "ADMIN" && senha.ToUpper() != "ADMIN");
+                } while (nome.ToUpper() != "ADMIN" || senha.ToUpper() != "ADMIN");
 
                 Funcionario.CadastrarFuncionarios(dbPath);
 
@@ -66,12 +66,12 @@ namespace Ex_LetsMarket
             //XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
             TextWriter write = new StreamWriter(dbPath);
 
-            bool atempt = false;
-            do
-            {
+            //bool atempt = false;
+            //do
+            //{
 
 
-            } while (atempt == false);
+            //} while (atempt == false);
         }
 
     }
