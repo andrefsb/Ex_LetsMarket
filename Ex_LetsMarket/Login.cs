@@ -24,7 +24,13 @@ namespace Ex_LetsMarket
         {
             if (!File.Exists(dbPath))
             {
-                Funcionario.CadastrarFuncionarios(dbPath);
+                var funcionario0 = new List<Funcionario>();
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
+                TextWriter write0 = new StreamWriter(dbPath);
+
+                serializer.Serialize(write0, funcionario0);
+
+                write0.Close();
 
             }
             var funcionario = Funcionario.LoadFuncionario(dbPath);
@@ -51,7 +57,7 @@ namespace Ex_LetsMarket
 
                 } while (nome.ToUpper() != "ADMIN" && senha.ToUpper() != "ADMIN");
 
-                //Funcionario.CadastrarFuncionario(dbPath);
+                Funcionario.CadastrarFuncionarios(dbPath);
 
 
             }
