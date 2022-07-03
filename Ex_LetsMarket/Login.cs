@@ -50,13 +50,12 @@ namespace Ex_LetsMarket
 
                 } while (nome.ToUpper() != "ADMIN" || senha.ToUpper() != "ADMIN");
 
-                Funcionario.CadastrarFuncionarios(dbPath);
+                Funcionario.CadastrarFuncionarios();
 
 
             }
             else
             {
-                Console.Clear();
                 bool atempt = false;
                 do
                 {
@@ -73,7 +72,7 @@ namespace Ex_LetsMarket
                             }
                             else
                             {
-                                Console.WriteLine("Login inexistente.");
+                                Console.WriteLine("\nLogin inexistente.\n");
                             }
 
                         }
@@ -93,7 +92,7 @@ namespace Ex_LetsMarket
                             else
                             {
                                 atempt = false;
-                                Console.WriteLine("Senha incorreta.");
+                                Console.WriteLine("\nSenha incorreta.\n");
                             }
                         }
 

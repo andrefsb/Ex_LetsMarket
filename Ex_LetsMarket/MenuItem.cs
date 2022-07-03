@@ -9,6 +9,7 @@
         private Action action;
 
         private int selectedIndex = 0;
+
         public MenuItem(string title)
         {
             this.title = title;

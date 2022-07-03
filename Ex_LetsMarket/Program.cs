@@ -23,7 +23,7 @@ namespace Ex_LetsMarket
             produtos.Add(new MenuItem("Listar Produtos", Produtos.ListarProdutos));
 
             var funcionarios = new MenuItem("Funcionários");
-            //funcionarios.Add(new MenuItem("Cadastrar Funcionários", Funcionario.CadastrarFuncionarios(dbPath));
+            funcionarios.Add(new MenuItem("Cadastrar Funcionários", Funcionario.CadastrarFuncionarios));
             funcionarios.Add(new MenuItem("Listar Funcionários", Funcionario.ListarFuncionarios));
 
             var submenu = new MenuItem("Submenu");
