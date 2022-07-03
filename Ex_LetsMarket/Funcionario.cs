@@ -18,7 +18,7 @@ namespace Ex_LetsMarket
         {
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
    
-            var funcionario = Funcionario.LoadFuncionario(dbPath);
+            funcionario = Funcionario.LoadFuncionario(dbPath);
 
             Table table = new Table(TableConfiguration.UnicodeAlt());
             table.From<Funcionario>(funcionario);
@@ -31,7 +31,7 @@ namespace Ex_LetsMarket
             XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
             TextWriter write = new StreamWriter(dbPath);
 
-            var funcionario = Funcionario.LoadFuncionario(dbPath);
+            //funcionario = Funcionario.LoadFuncionario(dbPath);
 
             string nome = "";
             string cargo = "";

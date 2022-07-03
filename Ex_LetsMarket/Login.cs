@@ -70,12 +70,14 @@ namespace Ex_LetsMarket
                                 atempt = true;
                                 break;
                             }
-                            else
-                            {
-                                Console.WriteLine("\nLogin inexistente.\n");
-                            }
+                            
 
                         }
+                        if (atempt == false)
+                        {
+                            Console.WriteLine("\nLogin inexistente.\n");
+                        }
+
                     } while (atempt == false);
 
                     do
@@ -92,10 +94,13 @@ namespace Ex_LetsMarket
                             else
                             {
                                 atempt = false;
-                                Console.WriteLine("\nSenha incorreta.\n");
                             }
+                           
                         }
-
+                        if (atempt == false)
+                        {
+                            Console.WriteLine("\nSenha incorreta.\n");
+                        }
                     } while (atempt == false);
 
                 } while (atempt == false);
