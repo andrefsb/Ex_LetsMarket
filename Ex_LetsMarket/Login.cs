@@ -69,6 +69,7 @@ namespace Ex_LetsMarket
                             if(entradalogin == log.Login)
                             {
                                 atempt = true;
+                                break;
                             }
                             else
                             {
@@ -84,9 +85,10 @@ namespace Ex_LetsMarket
                         entradasenha =Console.ReadLine();
                         for(int i=0; i<funcionario.Count; i++)
                         {
-                            if (funcionario[i].Login.ToString() == entradasenha)
+                            if (funcionario[i].Senha.ToString() == entradasenha && funcionario[i].Login.ToString()==entradalogin)
                             {
                                 atempt = true;
+                                break;
                             }
                             else
                             {
