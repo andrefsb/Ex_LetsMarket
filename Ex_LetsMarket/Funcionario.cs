@@ -46,9 +46,9 @@ namespace Ex_LetsMarket
             {
                 Console.WriteLine("Cadastro do primeiro acesso:\n");
             }
+            Console.WriteLine("Dados do novo funcionário\n");
             do
             {
-                Console.WriteLine("Dados do novo funcionário\n");
                 Console.WriteLine("Insira o nome do usuário: ");
                 nome = Console.ReadLine().ToUpper().Trim();
                 nomeC = nome.Split(' ').ToList();
