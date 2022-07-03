@@ -1,4 +1,4 @@
-﻿namespace LetsMarket.Menu4
+﻿namespace Ex_LetsMarket
 {
     public class MenuItem
     {
