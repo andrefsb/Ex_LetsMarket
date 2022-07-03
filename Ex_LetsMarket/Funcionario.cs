@@ -63,8 +63,17 @@ namespace Ex_LetsMarket
             nomeC = nome.Split(' ').ToList();
             Console.Write("Cargo:");
             cargo = Console.ReadLine();
-            Console.Write("Login:");
-            login = Console.ReadLine();
+            do
+            {
+                Console.Write("Login:");
+                login = Console.ReadLine();
+
+                if(login.ToUpper().Contains(" ")){
+                    Console.WriteLine("Insira um login sem utilizar espaços em branco.");
+                }
+
+
+            } while (login.ToUpper().Contains(" "));
             do
             {
                 verif = true;
