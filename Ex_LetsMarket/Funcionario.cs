@@ -17,7 +17,8 @@ namespace Ex_LetsMarket
         public static void ListarFuncionarios()
         {
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
-            Funcionario.LoadFuncionario(dbPath);
+   
+            var funcionario = Funcionario.LoadFuncionario(dbPath);
 
             Table table = new Table(TableConfiguration.UnicodeAlt());
             table.From<Funcionario>(funcionario);
@@ -29,16 +30,17 @@ namespace Ex_LetsMarket
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
             XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
             TextWriter write = new StreamWriter(dbPath);
+
+            var funcionario = Funcionario.LoadFuncionario(dbPath);
+
             string nome = "";
             string cargo = "";
             string login = "";
             string senha = "";
             bool verif = false;
-            bool jaexiste = true;
+            bool jaexiste = false;
             int tamanho = 0;
             List<string> nomeC = new List<string>();
-
-            Funcionario.LoadFuncionario(dbPath);
 
             if (funcionario.Count < 1)
             {
@@ -61,7 +63,7 @@ namespace Ex_LetsMarket
                     {
                         jaexiste = true;
                         Console.WriteLine("\nNome já cadastrado no sistema.\n");
-                        
+                        break;
                     }
                     else
                     {
@@ -89,7 +91,7 @@ namespace Ex_LetsMarket
                     {
                         jaexiste = true;
                         Console.WriteLine("\nLogin já cadastrado no sistema.\n");
-
+                        break;
                     }
                     else
                     {
