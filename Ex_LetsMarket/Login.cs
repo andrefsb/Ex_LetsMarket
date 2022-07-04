@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GetPass;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,9 +27,9 @@ namespace Ex_LetsMarket
             }
             var funcionario = Funcionario.LoadFuncionario(dbPath);
             string nome = "";
-            string senha = "";
+            var senha = "";
             string entradalogin = "";
-            string entradasenha = "";
+            var entradasenha = "";
 
             Console.WriteLine($"Número de funcionários Cadastrados: {funcionario.Count}");
 
@@ -40,8 +41,7 @@ namespace Ex_LetsMarket
                     Console.WriteLine("Primeira entrada:");
                     Console.Write("Login:");
                     nome = Console.ReadLine();
-                    Console.Write("Senha:");
-                    senha = Console.ReadLine();
+                    senha = ConsolePasswordReader.Read("Senha: ");
 
                     if (nome.ToUpper() != "ADMIN" || senha.ToUpper() != "ADMIN")
                     {
@@ -82,9 +82,8 @@ namespace Ex_LetsMarket
 
                     do
                     {
-                        Console.Write("Insira sua senha: ");
-                        entradasenha =Console.ReadLine();
-                        for(int i=0; i<funcionario.Count; i++)
+                        entradasenha = ConsolePasswordReader.Read("Senha: ");
+                        for (int i=0; i<funcionario.Count; i++)
                         {
                             if (funcionario[i].Senha.ToString() == entradasenha && funcionario[i].Login.ToString()==entradalogin)
                             {
