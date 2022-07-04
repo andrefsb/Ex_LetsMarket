@@ -28,9 +28,13 @@ namespace Ex_LetsMarket
             var funcionario = Funcionario.LoadFuncionario(dbPath);
             string nome = "";
             var senha = "";
-            string entradalogin = "";
-            var entradasenha = "";
+            string entradaLogin = "";
+            var entradaSenha = "";
             int cont = 0;
+            var nomeUsuarioLogado = "";
+            var loginUsuarioLogado = "";
+            var senhaUsuarioLogado = "";
+            var cargoUsuarioLogado = "";
 
             Console.WriteLine($"Número de funcionários Cadastrados: {funcionario.Count}");
 
@@ -78,33 +82,33 @@ namespace Ex_LetsMarket
                     {
                         
                         Console.WriteLine("Insira seu Login: ");
-                        entradalogin = Console.ReadLine();
+                        entradaLogin = Console.ReadLine();
 
                         foreach (var log in funcionario)
                         {
-                            if (entradalogin == log.Login)
+                            if (entradaLogin == log.Login)
                             {
                                 atempt = true;
                                 break;
                             }
-
-
                         }
                         if (atempt == false)
                         {
                             Console.WriteLine("\nLogin inexistente.\n");
                         }
 
-                    } while (atempt == false);
+                    } while (!atempt);
 
                     do
                     {
-                        entradasenha = ConsolePasswordReader.Read("Senha: ");
+                        entradaSenha = ConsolePasswordReader.Read("Senha: ");
                         for (int i = 0; i < funcionario.Count; i++)
                         {
-                            if (funcionario[i].Senha.ToString() == entradasenha && funcionario[i].Login.ToString() == entradalogin)
+                            if (funcionario[i].Senha.ToString() == entradaSenha && funcionario[i].Login.ToString() == entradaLogin)
                             {
                                 atempt = true;
+                                nomeUsuarioLogado = funcionario[i].Nome.ToString();
+                                cargoUsuarioLogado= funcionario[i].Cargo.ToString();
                                 break;
                             }
                             else
@@ -113,7 +117,7 @@ namespace Ex_LetsMarket
                             }
 
                         }
-                        if (atempt == false)
+                        if (!atempt)
                         {
                             Console.WriteLine("\nSenha incorreta.\n");
                             cont++;
@@ -123,18 +127,16 @@ namespace Ex_LetsMarket
                                 Console.WriteLine("Tentativas máximas de login alcançadas.");
                                 Console.ReadKey();
                                 Environment.Exit(1);
-
-
                             }
                             else
                             {
                                 Console.WriteLine("Você tem mais " + (3 - cont) + " tentativas.\n");
                             }
                         }
-                    } while (atempt == false);
+                    } while (!atempt);
 
-                } while (atempt == false);
-
+                } while (!atempt);
+                //Funcionario funcionarioLogado = new Funcionario(nomeUsuarioLogado, cargoUsuarioLogado,entradaLogin,entradaSenha);
 
             }
         }

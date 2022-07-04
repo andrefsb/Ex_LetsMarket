@@ -14,16 +14,31 @@ namespace Ex_LetsMarket
         public static List<Funcionario> funcionario { get; set; } = new List<Funcionario>();
         public static int Count { get => funcionario.Count; }
 
+        //public Funcionario(string nome, string cargo, string login, string senha)
+        //{
+        //    Nome = nome;
+        //    Cargo = cargo;
+        //    Login = login;
+        //    Senha = senha;
+        //} 
         public static void ListarFuncionarios()
+
         {
-            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
-   
-            funcionario = Funcionario.LoadFuncionario(dbPath);
+            //if (funcionarioLogado.Cargo == "GERENTE")
+            //{
+                string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
 
-            Table table = new Table(TableConfiguration.UnicodeAlt());
-            table.From<Funcionario>(funcionario);
+                funcionario = Funcionario.LoadFuncionario(dbPath);
 
-            Console.Write(table.ToString());
+                Table table = new Table(TableConfiguration.UnicodeAlt());
+                table.From<Funcionario>(funcionario);
+
+                Console.Write(table.ToString());
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Acesso negado.");
+            //}
         }
         public static void CadastrarFuncionarios()
         {
@@ -82,7 +97,8 @@ namespace Ex_LetsMarket
                 Console.Write("Login:");
                 login = Console.ReadLine();
 
-                if(login.ToUpper().Contains(" ")){
+                if (login.ToUpper().Contains(" "))
+                {
                     Console.WriteLine("Insira um login sem utilizar espaços em branco.");
                 }
                 foreach (var log in funcionario)
