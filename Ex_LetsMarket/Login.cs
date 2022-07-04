@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace Ex_LetsMarket
 {
-    public class Login
+    public abstract class Login
     {
         public XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
 
@@ -30,6 +30,7 @@ namespace Ex_LetsMarket
             var senha = "";
             string entradalogin = "";
             var entradasenha = "";
+            int cont = 0;
 
             Console.WriteLine($"Número de funcionários Cadastrados: {funcionario.Count}");
 
@@ -46,10 +47,23 @@ namespace Ex_LetsMarket
                     if (nome.ToUpper() != "ADMIN" || senha.ToUpper() != "ADMIN")
                     {
                         Console.WriteLine("Login ou senha inválidos.\n");
+                        cont++;
+
+                        if (cont > 2)
+                        {
+                            Console.WriteLine("Tentativas máximas de login alcançadas.");
+                            Console.ReadKey();
+                            Environment.Exit(1);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Você tem mais " + (3 - cont) + " tentativas.\n");
+                        }
                     }
 
                 } while (nome.ToUpper() != "ADMIN" || senha.ToUpper() != "ADMIN");
-
+                
                 Funcionario.CadastrarFuncionarios();
 
 
@@ -57,20 +71,23 @@ namespace Ex_LetsMarket
             else
             {
                 bool atempt = false;
+                cont = 0;
                 do
                 {
-                    do {
+                    do
+                    {
+                        
                         Console.WriteLine("Insira seu Login: ");
                         entradalogin = Console.ReadLine();
 
-                        foreach( var log in funcionario)
+                        foreach (var log in funcionario)
                         {
-                            if(entradalogin == log.Login)
+                            if (entradalogin == log.Login)
                             {
                                 atempt = true;
                                 break;
                             }
-                            
+
 
                         }
                         if (atempt == false)
@@ -83,9 +100,9 @@ namespace Ex_LetsMarket
                     do
                     {
                         entradasenha = ConsolePasswordReader.Read("Senha: ");
-                        for (int i=0; i<funcionario.Count; i++)
+                        for (int i = 0; i < funcionario.Count; i++)
                         {
-                            if (funcionario[i].Senha.ToString() == entradasenha && funcionario[i].Login.ToString()==entradalogin)
+                            if (funcionario[i].Senha.ToString() == entradasenha && funcionario[i].Login.ToString() == entradalogin)
                             {
                                 atempt = true;
                                 break;
@@ -94,17 +111,31 @@ namespace Ex_LetsMarket
                             {
                                 atempt = false;
                             }
-                           
+
                         }
                         if (atempt == false)
                         {
                             Console.WriteLine("\nSenha incorreta.\n");
+                            cont++;
+                            
+                            if (cont > 2)
+                            {
+                                Console.WriteLine("Tentativas máximas de login alcançadas.");
+                                Console.ReadKey();
+                                Environment.Exit(1);
+
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Você tem mais " + (3 - cont) + " tentativas.\n");
+                            }
                         }
                     } while (atempt == false);
 
                 } while (atempt == false);
 
-               
+
             }
         }
 
