@@ -7,25 +7,31 @@ namespace Ex_LetsMarket
 
     public class Funcionario
     {
+
         public string Nome { get; set; }
         public string Cargo { get; set; }
         public string Login { get; set; }
         public string Senha { get; set; }
+
         public static List<Funcionario> funcionario { get; set; } = new List<Funcionario>();
         public static int Count { get => funcionario.Count; }
 
-        //public Funcionario(string nome, string cargo, string login, string senha)
-        //{
-        //    Nome = nome;
-        //    Cargo = cargo;
-        //    Login = login;
-        //    Senha = senha;
-        //} 
-        public static void ListarFuncionarios()
+        public Funcionario(string nome, string cargo, string login, string senha)
+        {
+            Nome = nome;
+            Cargo = cargo;
+            Login = login;
+            Senha = senha;
+        }
+        public Funcionario()
+        {
+        }
+
+        public static void ListarFuncionarios(string cargo)
 
         {
-            //if (funcionarioLogado.Cargo == "GERENTE")
-            //{
+            if (usuarioLogado.Cargo.ToUpper() == "GERENTE")
+            {
                 string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
 
                 funcionario = Funcionario.LoadFuncionario(dbPath);
@@ -34,19 +40,17 @@ namespace Ex_LetsMarket
                 table.From<Funcionario>(funcionario);
 
                 Console.Write(table.ToString());
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Acesso negado.");
-            //}
+            }
+            else
+            {
+                Console.WriteLine("Acesso negado.");
+            }
         }
         public static void CadastrarFuncionarios()
         {
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
             XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
             TextWriter write = new StreamWriter(dbPath);
-
-            //funcionario = Funcionario.LoadFuncionario(dbPath);
 
             string nome = "";
             string cargo = "";
@@ -84,14 +88,21 @@ namespace Ex_LetsMarket
                     {
                         jaexiste = false;
                     }
-
                 }
-
             } while (nomeC.Count < 2 || jaexiste);
 
             nomeC = nome.Split(' ').ToList();
-            Console.Write("Cargo:");
-            cargo = Console.ReadLine();
+
+            if (funcionario.Count < 1)
+            {
+                cargo = "Gerente";
+                Console.Write($"Cargo: {cargo}");
+            }
+            else
+            {
+                Console.Write("Cargo:");
+                cargo = Console.ReadLine();
+            }
             do
             {
                 Console.Write("Login:");
@@ -113,9 +124,7 @@ namespace Ex_LetsMarket
                     {
                         jaexiste = false;
                     }
-
                 }
-
             } while (login.ToUpper().Contains(" ") || jaexiste);
             do
             {
@@ -140,12 +149,11 @@ namespace Ex_LetsMarket
 
             Console.WriteLine($"\nFuncionário {nome}({login}) cadastrado com sucesso!");
 
-            funcionario.Add(new Funcionario { Nome = nome, Cargo = cargo, Login = login, Senha = senha, });
+            funcionario.Add(new Funcionario( nome, cargo, login, senha ));
 
             serializer.Serialize(write, funcionario);
             write.Close();
         }
-
         public static List<Funcionario> LoadFuncionario(string dbPath)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));

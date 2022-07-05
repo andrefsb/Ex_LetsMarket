@@ -70,7 +70,6 @@ namespace Ex_LetsMarket
                 
                 Funcionario.CadastrarFuncionarios();
 
-
             }
             else
             {
@@ -136,8 +135,7 @@ namespace Ex_LetsMarket
                     } while (!atempt);
 
                 } while (!atempt);
-                //Funcionario funcionarioLogado = new Funcionario(nomeUsuarioLogado, cargoUsuarioLogado,entradaLogin,entradaSenha);
-
+                //Funcionario funcionarioLogado = new Funcionario(nomeUsuarioLogado, cargoUsuarioLogado, entradaLogin, entradaSenha);
             }
         }
 

@@ -11,7 +11,7 @@ namespace Ex_LetsMarket
         {
             Console.ResetColor();
             Console.Title = "Let's Store";
-
+            Funcionario funcionarioLogado = new Funcionario("A", "A", "A", "A");
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
 
             Login.Enter(dbPath);
