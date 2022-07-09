@@ -21,7 +21,7 @@ namespace Ex_LetsMarket
 
                 foreach (string s in nameS)
                 {
-                    if (password.ToUpper().Contains(s) || password.ToUpper().Contains(" ") || password is null)
+                    if (password.ToUpper().Contains(s) || password.ToUpper().Contains(" ") || string.IsNullOrWhiteSpace(password))
                     {
                         verify = false;
                         Console.WriteLine("\nSenha inválida. Não pode conter nome, sobrenome ou espaços em branco.\n");

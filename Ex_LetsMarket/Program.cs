@@ -13,9 +13,7 @@ namespace Ex_LetsMarket
             Console.Title = "Let's Store";
             Employee loggedEmployee = new Employee();
 
-            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
-
-            loggedEmployee = Login.Enter(dbPath);
+            Login.Enter();
 
             var menu = new MenuItem("Menu Principal");
 

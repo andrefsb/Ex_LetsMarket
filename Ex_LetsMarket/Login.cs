@@ -1,4 +1,5 @@
 ﻿using GetPass;
+using Sharprompt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,22 +13,19 @@ namespace Ex_LetsMarket
     {
         public XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
 
-        public static Employee Enter(string dbPath)
+        public static void Enter()
         {
-            if (!File.Exists(dbPath))
-            {
-                DataBase.DbValidation(dbPath);
-            }
-            var employee = DataBase.LoadDb(dbPath);
+
+            var employeesCount = DataBase.GetEmployeesCount();
             Employee loggedEmployee = new Employee();
             string name = "";
             var password = "";
             string loginEntry = "";
             var passwordEntry = "";
 
-            Console.WriteLine($"Número de funcionários Cadastrados: {employee.Count}");
+            Console.WriteLine($"Número de funcionários Cadastrados: {employeesCount}");
 
-            if (employee.Count < 1)
+            if (employeesCount < 1)
             {
                 FirstLogin.AdmLogin(name, password);
             }
@@ -35,13 +33,13 @@ namespace Ex_LetsMarket
             {
                 bool atempt = false;
 
-                loginEntry = LoginVerification.ValidateLogin(atempt, loginEntry, employee);
+                loginEntry = LoginVerification.ValidateLogin(loginEntry);
 
-                loggedEmployee = PasswordVerification.ValidatePassword(atempt, loginEntry, passwordEntry, employee);
+                passwordEntry = Prompt.Password("Insira a senha: ");
 
-                return loggedEmployee;
+                PasswordVerification.ValidatePassword(loginEntry, passwordEntry);
+
             }
-            return null;
         }
     }
 }

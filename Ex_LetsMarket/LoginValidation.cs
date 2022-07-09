@@ -26,7 +26,7 @@ namespace Ex_LetsMarket
                     if (login == log.Login)
                     {
                         alreadyExists = true;
-                        Console.WriteLine("\nLogin já cadastrado no sistema.\n");
+                        Console.WriteLine("Login já cadastrado no sistema.");
                         break;
                     }
                     else

@@ -8,27 +8,23 @@ namespace Ex_LetsMarket
 {
     internal class LoginVerification
     {
-        public static string ValidateLogin(bool atempt, string logginEntry, List<Employee> employee)
+        public static string ValidateLogin(string logginEntry)
         {
+            Employee atempt = null;
             do
             {
                 Console.Write("Insira seu Login: ");
                 logginEntry = Console.ReadLine();
 
-                foreach (var log in employee)
-                {
-                    if (logginEntry == log.Login)
-                    {
-                        atempt = true;
-                        break;
-                    }
-                }
-                if (atempt == false)
+                
+                atempt = DataBase.GetEmployeeByLogin(logginEntry);
+                GlobalConfiguration.SetCurrentLoggedEmployee(atempt);
+                if (atempt == null)
                 {
                     Console.WriteLine("\nLogin inexistente.\n");
                 }
 
-            } while (!atempt);
+            } while (atempt==null);
             return logginEntry;
         }
     }

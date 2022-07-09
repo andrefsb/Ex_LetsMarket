@@ -8,14 +8,17 @@ namespace Ex_LetsMarket
 
     public class Employee
     {
-
+        private class NonManagerView
+        {
+            public string Name { get; set; }
+            public string Post { get; set; }
+            public string Login { get; set; }
+        }
         public string Name { get; set; }
         public string Post { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-
-        public static List<Employee> employee { get; set; } = new List<Employee>();
-        public static int Count { get => employee.Count; }
+        
         public Employee(string name, string post, string login, string password)
         {
             Name = name;
@@ -28,13 +31,23 @@ namespace Ex_LetsMarket
         public static void ListEmployees()
 
         {
-            //if (Cargo.ToUpper() == "GERENTE")
-            //{
-            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
-            employee = DataBase.LoadDb(dbPath);
-
+            var employees = DataBase.GetAllEmployees();
+            var loggedEmployee = GlobalConfiguration.GetCurrentLoggedEmployee();
             Table table = new Table(TableConfiguration.UnicodeAlt());
-            table.From<Employee>(employee);
+            if(loggedEmployee.Post == "Gerente")
+            {
+                table.From<Employee>(employees);
+            }
+            else
+            {
+                List<NonManagerView> nonManagerView = new List<NonManagerView>();
+                foreach(var item in employees)
+                {
+                    nonManagerView.Add(new NonManagerView { Name = item.Name, Post = item.Post, Login = item.Login });
+                   
+                }
+                table.From<NonManagerView>(nonManagerView);
+            }
 
             Console.Write(table.ToString());
             //    }
@@ -45,19 +58,21 @@ namespace Ex_LetsMarket
         }
         public static void RegisterEmployee()
         {
-            string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");//Receber como parâmetro
-            var employee = DataBase.LoadDb(dbPath);
             string name = "";
             var post = "";
             string login = "";
             string password = "";
             List<string> nameS = new List<string>();
 
-            if (employee.Count < 1)
+            var employeesCount = DataBase.GetEmployeesCount();
+            if (employeesCount < 1)
             {
                 Console.WriteLine("Cadastro do primeiro acesso:\n");
             }
+
             Console.WriteLine("Dados do novo funcionário\n");
+
+            var employee = DataBase.GetAllEmployees();
 
             name = NameValidation.NewName(employee,nameS);
             nameS = name.Split(' ').ToList();
