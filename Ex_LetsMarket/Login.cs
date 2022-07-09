@@ -16,9 +16,9 @@ namespace Ex_LetsMarket
         {
             if (!File.Exists(dbPath))
             {
-                FileValidation.BdValidation(dbPath);
+                DataBase.DbValidation(dbPath);
             }
-            var employee = Employee.LoadFuncionario(dbPath);
+            var employee = DataBase.LoadDb(dbPath);
             Employee loggedEmployee = new Employee();
             string name = "";
             var password = "";
@@ -35,9 +35,9 @@ namespace Ex_LetsMarket
             {
                 bool atempt = false;
 
-                loginEntry = LoginValidation.ValidateLogin(atempt, loginEntry, passwordEntry, employee);
+                loginEntry = LoginVerification.ValidateLogin(atempt, loginEntry, employee);
 
-                loggedEmployee = PasswordValidation.ValidatePassword(atempt, loginEntry, passwordEntry, employee);
+                loggedEmployee = PasswordVerification.ValidatePassword(atempt, loginEntry, passwordEntry, employee);
 
                 return loggedEmployee;
             }

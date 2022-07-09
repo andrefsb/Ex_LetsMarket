@@ -20,8 +20,8 @@ namespace Ex_LetsMarket
             var menu = new MenuItem("Menu Principal");
 
             var products = new MenuItem("Produtos");
-            products.Add(new MenuItem("Cadastrar Produtos", Produtos.RegisterProduct));
-            products.Add(new MenuItem("Listar Produtos", Produtos.ListProducts));
+            products.Add(new MenuItem("Cadastrar Produtos", Products.RegisterProduct));
+            products.Add(new MenuItem("Listar Produtos", Products.ListProducts));
 
             var employees = new MenuItem("Funcionários");
             employees.Add(new MenuItem("Cadastrar Funcionários", Employee.RegisterEmployee));

@@ -8,28 +8,36 @@ namespace Ex_LetsMarket
 {
     internal class LoginValidation
     {
-        public static string ValidateLogin(bool atempt, string entradaLogin,string entradaSenha, List<Employee> funcionario)
+        public static string NewLogin(List<Employee> employee)
         {
+            string login = "";
+            bool alreadyExists = false;
             do
             {
-                Console.Write("Insira seu Login: ");
-                entradaLogin = Console.ReadLine();
+                Console.Write("Login: ");
+                login = Console.ReadLine();
 
-                foreach (var log in funcionario)
+                if (login.ToUpper().Contains(" "))
                 {
-                    if (entradaLogin == log.Login)
+                    Console.WriteLine("Insira um login sem utilizar espaços em branco.");
+                }
+                foreach (var log in employee)
+                {
+                    if (login == log.Login)
                     {
-                        atempt = true;
+                        alreadyExists = true;
+                        Console.WriteLine("\nLogin já cadastrado no sistema.\n");
                         break;
                     }
-                }
-                if (atempt == false)
-                {
-                    Console.WriteLine("\nLogin inexistente.\n");
+                    else
+                    {
+                        alreadyExists = false;
+                    }
                 }
 
-            } while (!atempt);
-            return entradaLogin;
+            } while (login.ToUpper().Contains(" ") || alreadyExists);
+            Console.WriteLine($"Login escolhido: {login}.\n");
+            return login;
         }
     }
 }

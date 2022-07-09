@@ -1,5 +1,4 @@
 ﻿using System;
-using GetPass;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,51 +8,27 @@ namespace Ex_LetsMarket
 {
     internal class PasswordValidation
     {
-        public static Employee ValidatePassword(bool atempt, string loginEntry,string passwordEntry, List<Employee> employee)
+        public static string NewPassword(List<string> nameS)
         {
-            var loggedUserName = "";
-            var loggedUserLogin = "";
-            var loggedUserPassword = "";
-            var loggedUserPost = "";
-            int count = 0;
+            bool verify = true;
+            string password = "";
             do
             {
-                passwordEntry = ConsolePasswordReader.Read("Senha: ");
-                for (int i = 0; i < employee.Count; i++)
-                {
-                    if (employee[i].Password.ToString() == passwordEntry && employee[i].Login.ToString() == loginEntry)
-                    {
-                        atempt = true;
-                        loggedUserName = employee[i].Name.ToString();
-                        loggedUserPost = employee[i].Post.ToString();
-                        loggedUserLogin = loginEntry;
-                        loggedUserPassword = passwordEntry;
-                        break;
-                    }
-                    else
-                    {
-                        atempt = false;
-                    }
-                }
-                if (!atempt)
-                {
-                    Console.WriteLine("\nSenha incorreta.\n");
-                    count++;
+                verify = true;
+                Console.WriteLine("Insira a senha do usuário: ");
+                password = Console.ReadLine();
+                int size = nameS.Count;
 
-                    if (count > 2)
+                foreach (string s in nameS)
+                {
+                    if (password.ToUpper().Contains(s) || password.ToUpper().Contains(" ") || password is null)
                     {
-                        Console.WriteLine("Tentativas máximas de login alcançadas.");
-                        Console.ReadKey();
-                        Environment.Exit(1);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Você tem mais " + (3 - count) + " tentativas.\n");
+                        verify = false;
+                        Console.WriteLine("\nSenha inválida. Não pode conter nome, sobrenome ou espaços em branco.\n");
                     }
                 }
-            } while (!atempt);
-            Employee funcionarioLogado = new Employee(loggedUserName, loggedUserPost, loginEntry, passwordEntry);
-            return funcionarioLogado;
+            } while (verify == false);
+            return password;
         }
     }
 }
