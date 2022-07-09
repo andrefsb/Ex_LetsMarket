@@ -11,10 +11,11 @@ namespace Ex_LetsMarket
         {
             Console.ResetColor();
             Console.Title = "Let's Store";
-            Funcionario funcionarioLogado = new Funcionario("A", "A", "A", "A");
+            Funcionario funcionarioLogado = new Funcionario();
+
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
 
-            Login.Enter(dbPath);
+            funcionarioLogado = Login.Enter(dbPath);
 
             var menu = new MenuItem("Menu Principal");
 
@@ -24,6 +25,7 @@ namespace Ex_LetsMarket
 
             var funcionarios = new MenuItem("Funcionários");
             funcionarios.Add(new MenuItem("Cadastrar Funcionários", Funcionario.CadastrarFuncionarios));
+
             funcionarios.Add(new MenuItem("Listar Funcionários", Funcionario.ListarFuncionarios));
 
             var submenu = new MenuItem("Submenu");

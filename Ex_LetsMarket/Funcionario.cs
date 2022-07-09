@@ -1,4 +1,5 @@
 ﻿using BetterConsoleTables;
+using Sharprompt;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -15,7 +16,6 @@ namespace Ex_LetsMarket
 
         public static List<Funcionario> funcionario { get; set; } = new List<Funcionario>();
         public static int Count { get => funcionario.Count; }
-
         public Funcionario(string nome, string cargo, string login, string senha)
         {
             Nome = nome;
@@ -23,28 +23,25 @@ namespace Ex_LetsMarket
             Login = login;
             Senha = senha;
         }
-        public Funcionario()
-        {
-        }
+        public Funcionario(){}
 
-        public static void ListarFuncionarios(string cargo)
+        public static void ListarFuncionarios()
 
         {
-            if (usuarioLogado.Cargo.ToUpper() == "GERENTE")
-            {
+            //if (Cargo.ToUpper() == "GERENTE")
+            //{
                 string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
-
                 funcionario = Funcionario.LoadFuncionario(dbPath);
 
                 Table table = new Table(TableConfiguration.UnicodeAlt());
                 table.From<Funcionario>(funcionario);
 
                 Console.Write(table.ToString());
-            }
-            else
-            {
-                Console.WriteLine("Acesso negado.");
-            }
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Acesso negado.");
+        //    }
         }
         public static void CadastrarFuncionarios()
         {
@@ -53,7 +50,7 @@ namespace Ex_LetsMarket
             TextWriter write = new StreamWriter(dbPath);
 
             string nome = "";
-            string cargo = "";
+            var cargo = "";
             string login = "";
             string senha = "";
             bool verif = false;
@@ -100,8 +97,8 @@ namespace Ex_LetsMarket
             }
             else
             {
-                Console.Write("Cargo:");
-                cargo = Console.ReadLine();
+                cargo = Prompt.Select("Selecione seu cargo:", new[] { "Entregador", "Caixa", "Supervisor" , "Gerente"});
+                Console.WriteLine($"Cargo escolhido: {cargo}.");
             }
             do
             {
@@ -125,7 +122,9 @@ namespace Ex_LetsMarket
                         jaexiste = false;
                     }
                 }
+                
             } while (login.ToUpper().Contains(" ") || jaexiste);
+            Console.WriteLine($"Login escolhido: {login}.\n");
             do
             {
                 verif = true;
@@ -147,7 +146,7 @@ namespace Ex_LetsMarket
                 }
             } while (verif == false);
 
-            Console.WriteLine($"\nFuncionário {nome}({login}) cadastrado com sucesso!");
+            Console.WriteLine($"\nFuncionário {nome} ({login}) cadastrado com sucesso!");
 
             funcionario.Add(new Funcionario( nome, cargo, login, senha ));
 
