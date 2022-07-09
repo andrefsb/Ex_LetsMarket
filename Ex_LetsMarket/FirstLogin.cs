@@ -9,22 +9,22 @@ namespace Ex_LetsMarket
 {
     internal class FirstLogin
     {
-        public static void AdmLogin(string nome, string senha)
+        public static void AdmLogin(string name, string password)
         {
             do
             {
-                int cont = 0;
+                int count = 0;
                 Console.WriteLine("Primeira entrada:");
                 Console.Write("Login:");
-                nome = Console.ReadLine();
-                senha = ConsolePasswordReader.Read("Senha: ");
+                name = Console.ReadLine();
+                password = ConsolePasswordReader.Read("Senha: ");
 
-                if (nome.ToUpper() != "ADMIN" || senha.ToUpper() != "ADMIN")
+                if (name.ToUpper() != "ADMIN" || password.ToUpper() != "ADMIN")
                 {
                     Console.WriteLine("Login ou senha inválidos.\n");
-                    cont++;
+                    count++;
 
-                    if (cont > 2)
+                    if (count > 2)
                     {
                         Console.WriteLine("Tentativas máximas de login alcançadas.");
                         Console.ReadKey();
@@ -32,11 +32,11 @@ namespace Ex_LetsMarket
                     }
                     else
                     {
-                        Console.WriteLine("Você tem mais " + (3 - cont) + " tentativas.\n");
+                        Console.WriteLine("Você tem mais " + (3 - count) + " tentativas.\n");
                     }
                 }
-            } while (nome.ToUpper() != "ADMIN" || senha.ToUpper() != "ADMIN");
-            Funcionario.CadastrarFuncionarios();
+            } while (name.ToUpper() != "ADMIN" || password.ToUpper() != "ADMIN");
+            Employee.RegisterEmployee();
         }
 
     }

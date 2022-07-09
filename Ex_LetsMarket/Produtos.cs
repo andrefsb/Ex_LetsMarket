@@ -2,7 +2,7 @@
 {
     public class Produtos
     {
-        public static Action ListarProdutos = () => Console.WriteLine("Listando Produtos");
-        public static Action CadastrarProdutos = () => Console.WriteLine("Cadastrando Produtos");
+        public static Action ListProducts = () => Console.WriteLine("Listando Produtos");
+        public static Action RegisterProduct = () => Console.WriteLine("Cadastrando Produtos");
     }
 }

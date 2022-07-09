@@ -8,40 +8,38 @@ using System.Xml.Serialization;
 
 namespace Ex_LetsMarket
 {
-    public abstract class Login
+    public class Login
     {
-        public XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
+        public XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
 
-        public static Funcionario Enter(string dbPath)
+        public static Employee Enter(string dbPath)
         {
             if (!File.Exists(dbPath))
             {
                 FileValidation.BdValidation(dbPath);
             }
-            var funcionario = Funcionario.LoadFuncionario(dbPath);
-            Funcionario funcionarioLogado = new Funcionario("A", "A", "A", "A");
-            string nome = "";
-            var senha = "";
-            string entradaLogin = "";
-            var entradaSenha = "";
-            
-            Console.WriteLine($"Número de funcionários Cadastrados: {funcionario.Count}");
+            var employee = Employee.LoadFuncionario(dbPath);
+            Employee loggedEmployee = new Employee();
+            string name = "";
+            var password = "";
+            string loginEntry = "";
+            var passwordEntry = "";
 
-            if (funcionario.Count < 1)
+            Console.WriteLine($"Número de funcionários Cadastrados: {employee.Count}");
+
+            if (employee.Count < 1)
             {
-               FirstLogin.AdmLogin(nome,senha);
+                FirstLogin.AdmLogin(name, password);
             }
             else
             {
                 bool atempt = false;
-                do
-                {
-                    entradaLogin = LoginValidation.ValidateLogin(atempt, entradaLogin,entradaSenha, funcionario);
 
-                    funcionarioLogado = PasswordValidation.ValidatePassword(atempt, entradaLogin,entradaSenha, funcionario);
+                loginEntry = LoginValidation.ValidateLogin(atempt, loginEntry, passwordEntry, employee);
 
-                } while (!atempt);
-                return funcionarioLogado;
+                loggedEmployee = PasswordValidation.ValidatePassword(atempt, loginEntry, passwordEntry, employee);
+
+                return loggedEmployee;
             }
             return null;
         }

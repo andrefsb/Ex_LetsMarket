@@ -12,8 +12,8 @@ namespace Ex_LetsMarket
     {
         public static void BdValidation(string dbPath)
         {
-            var funcionario0 = new List<Funcionario>();
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
+            var funcionario0 = new List<Employee>();
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
             TextWriter write0 = new StreamWriter(dbPath);
 
             serializer.Serialize(write0, funcionario0);

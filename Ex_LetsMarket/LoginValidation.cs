@@ -8,11 +8,11 @@ namespace Ex_LetsMarket
 {
     internal class LoginValidation
     {
-        public static string ValidateLogin(bool atempt, string entradaLogin,string entradaSenha, List<Funcionario> funcionario)
+        public static string ValidateLogin(bool atempt, string entradaLogin,string entradaSenha, List<Employee> funcionario)
         {
             do
             {
-                Console.WriteLine("Insira seu Login: ");
+                Console.Write("Insira seu Login: ");
                 entradaLogin = Console.ReadLine();
 
                 foreach (var log in funcionario)

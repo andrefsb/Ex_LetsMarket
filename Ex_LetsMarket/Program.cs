@@ -11,28 +11,28 @@ namespace Ex_LetsMarket
         {
             Console.ResetColor();
             Console.Title = "Let's Store";
-            Funcionario funcionarioLogado = new Funcionario();
+            Employee loggedEmployee = new Employee();
 
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
 
-            funcionarioLogado = Login.Enter(dbPath);
+            loggedEmployee = Login.Enter(dbPath);
 
             var menu = new MenuItem("Menu Principal");
 
-            var produtos = new MenuItem("Produtos");
-            produtos.Add(new MenuItem("Cadastrar Produtos", Produtos.CadastrarProdutos));
-            produtos.Add(new MenuItem("Listar Produtos", Produtos.ListarProdutos));
+            var products = new MenuItem("Produtos");
+            products.Add(new MenuItem("Cadastrar Produtos", Produtos.RegisterProduct));
+            products.Add(new MenuItem("Listar Produtos", Produtos.ListProducts));
 
-            var funcionarios = new MenuItem("Funcionários");
-            funcionarios.Add(new MenuItem("Cadastrar Funcionários", Funcionario.CadastrarFuncionarios));
+            var employees = new MenuItem("Funcionários");
+            employees.Add(new MenuItem("Cadastrar Funcionários", Employee.RegisterEmployee));
 
-            funcionarios.Add(new MenuItem("Listar Funcionários", Funcionario.ListarFuncionarios));
+            employees.Add(new MenuItem("Listar Funcionários", Employee.ListEmployees));
 
             var submenu = new MenuItem("Submenu");
             submenu.Add(new MenuItem("item do submenu"));
 
-            menu.Add(produtos);
-            menu.Add(funcionarios);
+            menu.Add(products);
+            menu.Add(employees);
             menu.Add(submenu);
 
             menu.Execute();

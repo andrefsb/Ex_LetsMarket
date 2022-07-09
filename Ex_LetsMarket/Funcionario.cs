@@ -6,35 +6,35 @@ using System.Xml.Serialization;
 namespace Ex_LetsMarket
 {
 
-    public class Funcionario
+    public class Employee
     {
 
-        public string Nome { get; set; }
-        public string Cargo { get; set; }
+        public string Name { get; set; }
+        public string Post { get; set; }
         public string Login { get; set; }
-        public string Senha { get; set; }
+        public string Password { get; set; }
 
-        public static List<Funcionario> funcionario { get; set; } = new List<Funcionario>();
-        public static int Count { get => funcionario.Count; }
-        public Funcionario(string nome, string cargo, string login, string senha)
+        public static List<Employee> employee { get; set; } = new List<Employee>();
+        public static int Count { get => employee.Count; }
+        public Employee(string name, string post, string login, string password)
         {
-            Nome = nome;
-            Cargo = cargo;
+            Name = name;
+            Post = post;
             Login = login;
-            Senha = senha;
+            Password = password;
         }
-        public Funcionario(){}
+        public Employee(){}
 
-        public static void ListarFuncionarios()
+        public static void ListEmployees()
 
         {
             //if (Cargo.ToUpper() == "GERENTE")
             //{
                 string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
-                funcionario = Funcionario.LoadFuncionario(dbPath);
+                employee = Employee.LoadFuncionario(dbPath);
 
                 Table table = new Table(TableConfiguration.UnicodeAlt());
-                table.From<Funcionario>(funcionario);
+                table.From<Employee>(employee);
 
                 Console.Write(table.ToString());
         //    }
@@ -43,22 +43,22 @@ namespace Ex_LetsMarket
         //        Console.WriteLine("Acesso negado.");
         //    }
         }
-        public static void CadastrarFuncionarios()
+        public static void RegisterEmployee()
         {
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "funcionarios.xml");
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
             TextWriter write = new StreamWriter(dbPath);
 
-            string nome = "";
-            var cargo = "";
+            string name = "";
+            var post = "";
             string login = "";
-            string senha = "";
-            bool verif = false;
-            bool jaexiste = false;
-            int tamanho = 0;
-            List<string> nomeC = new List<string>();
+            string password = "";
+            bool verify = false;
+            bool alreadyExists = false;
+            int size = 0;
+            List<string> nameS = new List<string>();
 
-            if (funcionario.Count < 1)
+            if (employee.Count < 1)
             {
                 Console.WriteLine("Cadastro do primeiro acesso:\n");
             }
@@ -66,39 +66,39 @@ namespace Ex_LetsMarket
             do
             {
                 Console.WriteLine("Insira o nome do usuário: ");
-                nome = Console.ReadLine().ToUpper().Trim();
-                nomeC = nome.Split(' ').ToList();
+                name = Console.ReadLine().ToUpper().Trim();
+                nameS = name.Split(' ').ToList();
 
-                if (nomeC.Count < 2)
+                if (nameS.Count < 2)
                 {
                     Console.WriteLine("Escreva nome e sobrenome.\n");
                 }
-                foreach (var nom in funcionario)
+                foreach (var n in employee)
                 {
-                    if (nome == nom.Nome)
+                    if (name == n.Name)
                     {
-                        jaexiste = true;
+                        alreadyExists = true;
                         Console.WriteLine("\nNome já cadastrado no sistema.\n");
                         break;
                     }
                     else
                     {
-                        jaexiste = false;
+                        alreadyExists = false;
                     }
                 }
-            } while (nomeC.Count < 2 || jaexiste);
+            } while (nameS.Count < 2 || alreadyExists);
 
-            nomeC = nome.Split(' ').ToList();
+            nameS = name.Split(' ').ToList();
 
-            if (funcionario.Count < 1)
+            if (employee.Count < 1)
             {
-                cargo = "Gerente";
-                Console.Write($"Cargo: {cargo}");
+                post = "Gerente";
+                Console.Write($"Cargo: {post}");
             }
             else
             {
-                cargo = Prompt.Select("Selecione seu cargo:", new[] { "Entregador", "Caixa", "Supervisor" , "Gerente"});
-                Console.WriteLine($"Cargo escolhido: {cargo}.");
+                post = Prompt.Select("Selecione seu cargo:", new[] { "Entregador", "Caixa", "Supervisor" , "Gerente"});
+                Console.WriteLine($"Cargo escolhido: {post}.");
             }
             do
             {
@@ -109,58 +109,58 @@ namespace Ex_LetsMarket
                 {
                     Console.WriteLine("Insira um login sem utilizar espaços em branco.");
                 }
-                foreach (var log in funcionario)
+                foreach (var log in employee)
                 {
                     if (login == log.Login)
                     {
-                        jaexiste = true;
+                        alreadyExists = true;
                         Console.WriteLine("\nLogin já cadastrado no sistema.\n");
                         break;
                     }
                     else
                     {
-                        jaexiste = false;
+                        alreadyExists = false;
                     }
                 }
                 
-            } while (login.ToUpper().Contains(" ") || jaexiste);
+            } while (login.ToUpper().Contains(" ") || alreadyExists);
             Console.WriteLine($"Login escolhido: {login}.\n");
             do
             {
-                verif = true;
+                verify = true;
                 Console.WriteLine("Insira a senha do usuário: ");
-                senha = Console.ReadLine();
-                tamanho = nomeC.Count;
+                password = Console.ReadLine();
+                size = nameS.Count;
 
-                foreach (string s in nomeC)
+                foreach (string s in nameS)
                 {
 
-                    if (senha.ToUpper().Contains(s) || senha.ToUpper().Contains(" "))
+                    if (password.ToUpper().Contains(s) || password.ToUpper().Contains(" "))
                     {
-                        verif = false;
+                        verify = false;
                     }
                 }
-                if (verif == false)
+                if (verify == false)
                 {
                     Console.WriteLine("\nSenha inválida. Não pode conter nome, sobrenome ou espaços em branco.\n");
                 }
-            } while (verif == false);
+            } while (verify == false);
 
-            Console.WriteLine($"\nFuncionário {nome} ({login}) cadastrado com sucesso!");
+            Console.WriteLine($"\nFuncionário {name} ({login}) cadastrado com sucesso!");
 
-            funcionario.Add(new Funcionario( nome, cargo, login, senha ));
+            employee.Add(new Employee( name, post, login, password ));
 
-            serializer.Serialize(write, funcionario);
+            serializer.Serialize(write, employee);
             write.Close();
         }
-        public static List<Funcionario> LoadFuncionario(string dbPath)
+        public static List<Employee> LoadFuncionario(string dbPath)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Funcionario>));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
             TextReader reader = new StreamReader(dbPath);
             var objeto = serializer.Deserialize(reader);
 
             reader.Close();
-            return (List<Funcionario>)objeto;
+            return (List<Employee>)objeto;
         }
     }
 

@@ -9,23 +9,25 @@ namespace Ex_LetsMarket
 {
     internal class PasswordValidation
     {
-        public static Funcionario ValidatePassword(bool atempt, string entradaSenha,string entradaLogin, List<Funcionario> funcionario)
+        public static Employee ValidatePassword(bool atempt, string loginEntry,string passwordEntry, List<Employee> employee)
         {
-            var nomeUsuarioLogado = "";
-            var loginUsuarioLogado = entradaLogin;
-            var senhaUsuarioLogado = entradaSenha;
-            var cargoUsuarioLogado = "";
+            var loggedUserName = "";
+            var loggedUserLogin = "";
+            var loggedUserPassword = "";
+            var loggedUserPost = "";
+            int count = 0;
             do
             {
-                int cont = 0;
-                entradaSenha = ConsolePasswordReader.Read("Senha: ");
-                for (int i = 0; i < funcionario.Count; i++)
+                passwordEntry = ConsolePasswordReader.Read("Senha: ");
+                for (int i = 0; i < employee.Count; i++)
                 {
-                    if (funcionario[i].Senha.ToString() == entradaSenha && funcionario[i].Login.ToString() == entradaLogin)
+                    if (employee[i].Password.ToString() == passwordEntry && employee[i].Login.ToString() == loginEntry)
                     {
                         atempt = true;
-                        nomeUsuarioLogado = funcionario[i].Nome.ToString();
-                        cargoUsuarioLogado = funcionario[i].Cargo.ToString();
+                        loggedUserName = employee[i].Name.ToString();
+                        loggedUserPost = employee[i].Post.ToString();
+                        loggedUserLogin = loginEntry;
+                        loggedUserPassword = passwordEntry;
                         break;
                     }
                     else
@@ -36,9 +38,9 @@ namespace Ex_LetsMarket
                 if (!atempt)
                 {
                     Console.WriteLine("\nSenha incorreta.\n");
-                    cont++;
+                    count++;
 
-                    if (cont > 2)
+                    if (count > 2)
                     {
                         Console.WriteLine("Tentativas máximas de login alcançadas.");
                         Console.ReadKey();
@@ -46,11 +48,11 @@ namespace Ex_LetsMarket
                     }
                     else
                     {
-                        Console.WriteLine("Você tem mais " + (3 - cont) + " tentativas.\n");
+                        Console.WriteLine("Você tem mais " + (3 - count) + " tentativas.\n");
                     }
                 }
             } while (!atempt);
-            Funcionario funcionarioLogado = new Funcionario(nomeUsuarioLogado, cargoUsuarioLogado, entradaLogin, entradaSenha);
+            Employee funcionarioLogado = new Employee(loggedUserName, loggedUserPost, loginEntry, passwordEntry);
             return funcionarioLogado;
         }
     }
